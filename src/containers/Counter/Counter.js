@@ -36,6 +36,15 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
                 <CounterControl label="Add 15" clicked={this.props.onAddCounter}  />
                 <CounterControl label="Subtract 15" clicked={this.props.onSubtractCounter}  />
+                <hr />
+                <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store results</button>
+                <ul>
+                    {
+                        this.props.storedResults.map(storedResult => (
+                            <li key={storedResult.id} onClick={() => this.props.onDeleteResult(storedResult.id)}>{storedResult.value}</li>
+                        ))
+                    }
+                </ul>
             </div>
         );
     }
@@ -49,7 +58,9 @@ const mapDisptachToProps = dispatch => {
         onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
         onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
         onAddCounter: () => dispatch({type: 'ADD', value: 15}),
-        onSubtractCounter: () => dispatch({type: 'SUBTRACT', value: 15})
+        onSubtractCounter: () => dispatch({type: 'SUBTRACT', value: 15}),
+        onStoreResult: result => dispatch({type: 'STORE_RESULT', result: result}),
+        onDeleteResult: (id) => dispatch({type: 'DELETE_RESULT', resultElementId: id})
     };
 }
 
@@ -57,7 +68,8 @@ const mapStateToProps = state => {
     // here we define prop names initialized with the slice of the state we are interested
     // Redux will handle passing the following object as part of the props to our component
     return {
-        ctr: state.counter
+        ctr: state.counter,
+        storedResults: state.results
     };
 }
 
