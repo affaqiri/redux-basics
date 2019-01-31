@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
+
+// Container type of component
 class Counter extends Component {
     state = {
         counter: 0
@@ -28,7 +31,7 @@ class Counter extends Component {
     render () {
         return (
             <div>
-                <CounterOutput value={this.state.counter} />
+                <CounterOutput value={this.props.ctr} />
                 <CounterControl label="Increment" clicked={() => this.counterChangedHandler( 'inc' )} />
                 <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
                 <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
@@ -38,4 +41,15 @@ class Counter extends Component {
     }
 }
 
-export default Counter;
+const mapStateToProps = state => {
+    // here we define prop names initialized with the slice of the state we are interested
+    // Redux will handle passing the following object as part of the props to our component
+    return {
+        ctr: state.counter
+    };
+}
+
+// connect is a higher order component 
+// we need to specify which part (slice) of the global application state is relevant to our component
+// and which actions we want to dispatch from our component
+export default connect(mapStateToProps)(Counter);

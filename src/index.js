@@ -5,8 +5,10 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import reducer  from "./store/reducer";
+import { Provider } from "react-redux";
 
 const store = createStore(reducer);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Provider is a helper component that helps us inject the store to react components
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
