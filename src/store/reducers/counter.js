@@ -1,11 +1,10 @@
-import * as actionTypes from '../store/actions';
+import * as actionTypes from '../actions';
 
 const initialState = {
-    counter: 0,
-    results: []
+    counter: 0
 }
 
-const reducer = (state=initialState, action) => {
+const counterReducer = (state=initialState, action) => {
     switch ( action.type ) {
         case actionTypes.INCREMENT:
             // One way but still not a deep clone, just first level clone
@@ -31,23 +30,9 @@ const reducer = (state=initialState, action) => {
                 ...state,
                 counter: state.counter - action.value
             }
-        case actionTypes.STORE_RESULT: 
-            return {
-                ...state,
-                results: state.results.concat({id: new Date(), value: state.counter}) // we must us concat instead of push for immutability
-            }
-        case actionTypes.DELETE_RESULT: 
-            // state.results.splice(2, 1); not immutable way so should be avoided
-            //newResults = [...state.results]; // this is one method
-            //newResults.splice(2, 1);
-            const updatedResults = state.results.filter(result => result.id !== action.resultElementId);
-            return {
-                ...state,
-                results: updatedResults
-            }
     }
     
     return state;
 }
 
-export default reducer;
+export default counterReducer; 

@@ -69,8 +69,8 @@ const mapStateToProps = state => {
     // here we define prop names initialized with the slice of the state we are interested
     // Redux will handle passing the following object as part of the props to our component
     return {
-        ctr: state.counter,
-        storedResults: state.results
+        ctr: state.ctr.counter,             // because the global state was breakdown per namespace
+        storedResults: state.res.results
     };
 }
 
