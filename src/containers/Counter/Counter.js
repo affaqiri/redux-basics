@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
-import * as actionTypes from '../../store/actions';
+//import * as actionTypes from '../../store/actions/actions';
+import * as actionCreators from '../../store/actions/actions';
 
 // Container type of component
 class Counter extends Component {
@@ -56,12 +57,12 @@ const mapDisptachToProps = dispatch => {
     // return an object that will hold some properties which hold reference to some functions that will dispatch some actions
     return {
         //mapping of prop property to an anonymous function
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        onAddCounter: () => dispatch({type: actionTypes.ADD, value: 15}),
-        onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, value: 15}),
-        onStoreResult: result => dispatch({type: actionTypes.STORE_RESULT, result: result}),
-        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElementId: id})
+        onIncrementCounter: () => dispatch(actionCreators.increment()),
+        onDecrementCounter: () => dispatch(actionCreators.decrement()),
+        onAddCounter: () => dispatch(actionCreators.add(15)),
+        onSubtractCounter: () => dispatch(actionCreators.subtract(15)),
+        onStoreResult: result => dispatch(actionCreators.storeResult(result)),
+        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id))
     };
 }
 
