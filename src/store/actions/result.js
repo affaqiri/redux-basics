@@ -12,8 +12,10 @@ export const storeResult = res => {
 export const storeResultAsync = res => {
   // Redux Thank passes the dispatch function implicitly
   // It is a middleware and therefore can change existing actions and introduce delays before dispatching back the same action
-  return dispatch => {
+  return (dispatch, getState) => {
     setTimeout(() => {
+      const oldCounter = getState().ctr.counter; // example of accessing the state using redux thunk but not a good practice and anyting we need should be passed as parameter
+      console.log("Old counter value: " + oldCounter);
       dispatch(storeResult(res));
     }, 2000);
   }
