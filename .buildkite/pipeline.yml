@@ -4,3 +4,9 @@ steps:
   - wait
   - label: "Install NPM dependencies"
     command: npm install
+    plugins:
+      - docker#v1.0.0:
+        image: node
+        workdir: /app
+
+  
